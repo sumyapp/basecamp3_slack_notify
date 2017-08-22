@@ -17,3 +17,7 @@ test:
   database: basecamp3_slack_notify_test
   username: root
   host: localhost
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
