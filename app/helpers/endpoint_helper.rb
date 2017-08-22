@@ -1,0 +1,2 @@
+module EndpointHelper
+end
