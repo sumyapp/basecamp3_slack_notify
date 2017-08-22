@@ -9,6 +9,10 @@
 
 # Ignore secure config.
 .env
+/certificates
+/key
+/challenge
+/output_cert_dir
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -19,6 +23,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.swp
 
 # Ignore Byebug command history file.
 .byebug_history
