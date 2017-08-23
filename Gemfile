@@ -45,6 +45,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   # A Ruby gem to load environment variables from `.env`.
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'rspec-rails'
+  gem 'rspec-request_describer'
 end
 
 group :development do
