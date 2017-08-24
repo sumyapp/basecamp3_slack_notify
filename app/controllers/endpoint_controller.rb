@@ -9,8 +9,7 @@ class EndpointController < ApplicationController
       icon_emoji: ":#{Rails.application.secrets.slack[:icon_emoji]}:"
     )
 
-    mes = generate_messeage(params)
-    notifier.ping mes
+    notifier.post text: generate_text(params), attachments: generate_attachments(params)
 
     render plain: mes
   end
@@ -19,15 +18,22 @@ class EndpointController < ApplicationController
   # Todo created in Project <URL|PROJECT> Todolist <URL|LIST> by <URL|AUTHOR NAME>
   # <URL|TODO_TITLE>
   # CONTENT
-  def generate_messeage(params)
+  def generate_text(params)
     account_id, project_id = params[:recording][:parent][:app_url].split("/").values_at(3,5)
-    mes = "#{params[:kind].underscore.humanize}"
-    mes += " in #{params[:recording][:bucket][:type]} <https://3.basecamp.com/#{account_id}/projects/#{project_id}/|#{params[:recording][:bucket][:name]}>"
-    mes += " #{params[:recording][:parent][:type]} <#{params[:recording][:parent][:app_url]}|#{params[:recording][:parent][:title]}>"
-    mes += " by #{params[:creator][:name]}\n"
-    mes += "<#{params[:recording][:app_url]}|#{params[:recording][:title]}>\n"
-    mes += "#{Slacken.translate(params[:recording][:content])}\n" unless params[:recording][:title] == params[:recording][:content]
-    mes
+    text = "#{params[:kind].underscore.humanize}"
+    text += " in #{params[:recording][:bucket][:type]} <https://3.basecamp.com/#{account_id}/projects/#{project_id}/|#{params[:recording][:bucket][:name]}>"
+    text += " #{params[:recording][:parent][:type]} <#{params[:recording][:parent][:app_url]}|#{params[:recording][:parent][:title]}>"
+    text += " by #{params[:creator][:name]}\n"
+    text
+  end
+
+  def generate_attachments(params)
+    text = "<#{params[:recording][:app_url]}|#{params[:recording][:title]}>\n"
+    text += "#{Slacken.translate(params[:recording][:content])}\n" unless params[:recording][:title] == params[:recording][:content]
+    attachments = [{
+      text: text
+    }]
+    attachments
   end
 
 end
