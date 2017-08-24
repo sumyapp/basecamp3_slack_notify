@@ -34,9 +34,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-
-# Use Lets' Encrypt
-gem 'letsencrypt_plugin' # If you want to use your credential, remove this line
 # Translate HTML sources to markup texts for Slack
 gem 'slacken'
 # A slim ruby wrapper for posting to slack webhooks
