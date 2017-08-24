@@ -3,10 +3,10 @@ class EndpointController < ApplicationController
 
   def slack
     notifier = Slack::Notifier.new(
-      Rails.application.secrets.slack[:incoming_webhook_url],
+      Rails.application.secrets.slack["incoming_webhook_url"],
       channel: params[:channel], # Require specify channel via url
-      username: Rails.application.secrets.slack[:username],
-      icon_emoji: ":#{Rails.application.secrets.slack[:icon_emoji]}:"
+      username: Rails.application.secrets.slack["username"],
+      icon_emoji: ":#{Rails.application.secrets.slack['icon_emoji']}:"
     )
 
     mes = generate_messeage(params)
