@@ -9,9 +9,9 @@ class EndpointController < ApplicationController
       icon_emoji: ":#{Rails.application.secrets.slack[:icon_emoji]}:"
     )
 
-    notifier.post text: generate_text(params), attachments: generate_attachments(params)
+    result = notifier.post text: generate_text(params), attachments: generate_attachments(params)
 
-    render plain: mes
+    render plain: result
   end
 
   private
