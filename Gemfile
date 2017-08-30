@@ -40,11 +40,14 @@ gem 'slack-notifier'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   # A Ruby gem to load environment variables from `.env`.
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'rspec-rails'
+  gem 'rspec-request_describer'
 end
 
 group :development do
