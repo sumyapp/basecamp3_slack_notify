@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'slacken'
 # A slim ruby wrapper for posting to slack webhooks
 gem 'slack-notifier'
+# A Ruby wrapper for the OAuth 2.0 protocol.
+gem 'oauth2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
