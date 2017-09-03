@@ -67,21 +67,18 @@ class EndpointController < ApplicationController
   # Return person name via basecamp sgid
   # Call Person API or Use Cache the response
   def sgid_to_person_name(sgid, account_id)
-    # TODO: Load hash from cache
+    # Load hash from cache
     people_hash = Rails.cache.fetch('basecamp_sgid_name_hash')
     people_hash = {} if people_hash == nil
 
-    # If can't find sgid in cache
-    if people_hash[sgid] == nil
-      # JSON to hash. And, cache the hash
-      people_json = get_people_json(account_id)
-      # Collect people name and sgid
-      people_json.each do |person|
-        people_hash[person["attachable_sgid"]] = person["name"]
-      end
-      # TODO: Save hash to cache
-      Rails.cache.write 'basecamp_sgid_name_hash', people_hash
+    # JSON to hash. And, cache the hash
+    people_json = get_people_json(account_id)
+    # Collect people name and sgid
+    people_json.each do |person|
+      people_hash[person["attachable_sgid"]] = person["name"]
     end
+    # Save hash to cache
+    Rails.cache.write 'basecamp_sgid_name_hash', people_hash
 
     people_hash[sgid]
   end
@@ -91,7 +88,6 @@ class EndpointController < ApplicationController
     require 'open-uri'
     client_id = Rails.application.secrets.basecamp[:client_id]
     client_secret = Rails.application.secrets.basecamp[:client_secret]
-    access_token = Rails.application.secrets.basecamp[:admin_access_token]
 
     # https://github.com/basecamp/bc3-api/blob/master/sections/people.md#get-pingable-people
     res = open("https://3.basecampapi.com/#{account_id}/circles/people.json",
@@ -101,4 +97,9 @@ class EndpointController < ApplicationController
     people_json
   end
 
+  def access_token
+    token = AccessToken.last
+    token.refresh_access_token
+    token.access_token
+  end
 end
