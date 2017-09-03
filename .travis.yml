@@ -1,0 +1,12 @@
+rvm: 2.4.1
+sudo: false
+dist: trusty
+cache:
+  bundler: true
+branches:
+  only:
+    - master
+before_script:
+  - bundle exec rake db:migrate:reset
+script:
+  - bundle exec rake

@@ -36,17 +36,18 @@ gem 'jbuilder', '~> 2.5'
 gem 'slacken'
 # A slim ruby wrapper for posting to slack webhooks
 gem 'slack-notifier'
-# A Ruby wrapper for the OAuth 2.0 protocol.
-gem 'oauth2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   # A Ruby gem to load environment variables from `.env`.
   gem 'dotenv-rails', require: 'dotenv/rails-now'
+  gem 'rspec-rails'
+  gem 'rspec-request_describer'
 end
 
 group :development do
