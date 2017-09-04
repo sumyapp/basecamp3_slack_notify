@@ -31,8 +31,7 @@ class EndpointController < ApplicationController
   def generate_attachments(params, account_id, project_id)
     text = "<#{params[:recording][:app_url]}|#{params[:recording][:title]}>\n"
     if params[:recording][:title] != params[:recording][:content]
-      p Rails.application.secrets.basecamp
-      if Rails.application.secrets.basecamp[:integration] == true
+      if Rails.application.secrets.basecamp[:integration]
         text += "#{Slacken.translate(replace_attachments(params[:recording][:content], account_id))}\n"
       else
         text += "#{Slacken.translate(params[:recording][:content])}\n"
@@ -47,8 +46,7 @@ class EndpointController < ApplicationController
   # [Experimental/Optional feature] Require basecamp integration.
   # Translate basecamp attachments to plain texts
   def replace_attachments(recording_content, account_id)
-    replaced_content = recording_content
-    html_doc = Nokogiri::HTML(replaced_content)
+    html_doc = Nokogiri::HTML(recording_content)
     bc_attachments = html_doc.css "bc-attachment"
     bc_attachments.each do |attachment|
       # Find mention, if found, replace content
@@ -59,9 +57,8 @@ class EndpointController < ApplicationController
         attachment.content = person_name
       end
     end
-    replaced_content = html_doc.to_html
 
-    replaced_content
+    html_doc.to_html
   end
 
   # Return person name via basecamp sgid
@@ -69,7 +66,7 @@ class EndpointController < ApplicationController
   def sgid_to_person_name(sgid, account_id)
     # Load hash from cache
     people_hash = Rails.cache.fetch('basecamp_sgid_name_hash')
-    people_hash = {} if people_hash == nil
+    people_hash ||= {} 
 
     # JSON to hash. And, cache the hash
     people_json = get_people_json(account_id)
