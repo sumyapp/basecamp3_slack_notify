@@ -86,9 +86,6 @@ class EndpointController < ApplicationController
   # Get a list of all pingable people
   def get_people_json(account_id)
     require 'open-uri'
-    client_id = Rails.application.secrets.basecamp[:client_id]
-    client_secret = Rails.application.secrets.basecamp[:client_secret]
-
     # https://github.com/basecamp/bc3-api/blob/master/sections/people.md#get-pingable-people
     res = open("https://3.basecampapi.com/#{account_id}/circles/people.json",
                 "Authorization" => "Bearer #{access_token}")

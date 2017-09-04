@@ -25,7 +25,7 @@ class AccessToken < ApplicationRecord
 
     if auth_json["access_token"] != nil && auth_json["expires_in"] != nil
       self.access_token = auth_json["access_token"]
-      self.expires_at = Time.now + auth_json["expires_in"]
+      self.expires_at = Time.now.utc + auth_json["expires_in"]
       self.save
     end
   end

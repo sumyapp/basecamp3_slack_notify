@@ -5,7 +5,6 @@ class SetupController < ApplicationController
   # https://github.com/basecamp/api/blob/master/sections/authentication.md#oauth-2-from-scratch
   def index
     client_id = Rails.application.secrets.basecamp[:client_id]
-    client_secret = Rails.application.secrets.basecamp[:client_secret]
     redirect_uri = Rails.application.secrets.basecamp[:redirect_uri]
     auth_uri = "https://launchpad.37signals.com/authorization/new?type=web_server&client_id=#{client_id}&redirect_uri=#{redirect_uri}"
 
@@ -39,9 +38,9 @@ class SetupController < ApplicationController
     # Store token to database. latest registerd token will use
     AccessToken.create access_token: auth_json["access_token"],
                       refresh_token: auth_json["refresh_token"],
-                         expires_at: (Time.now + auth_json["expires_in"])
+                         expires_at: (Time.now.utc + auth_json["expires_in"])
 
     render plain: auth_json
   end
-  
+
 end
