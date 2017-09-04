@@ -13,9 +13,9 @@
 ActiveRecord::Schema.define(version: 20170903121535) do
 
   create_table "access_tokens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "access_token"
-    t.text "refresh_token"
-    t.datetime "expires_at"
+    t.text "access_token", null: false
+    t.text "refresh_token", null: false
+    t.datetime "expires_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
