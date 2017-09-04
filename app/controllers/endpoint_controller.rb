@@ -37,10 +37,8 @@ class EndpointController < ApplicationController
         text += "#{Slacken.translate(params[:recording][:content])}\n"
       end
     end
-    attachments = [{
-      text: text
-    }]
-    attachments
+
+    [{text: text}] # return attachments
   end
 
   # [Experimental/Optional feature] Require basecamp integration.
@@ -66,18 +64,18 @@ class EndpointController < ApplicationController
   def sgid_to_person_name(sgid, account_id)
     # Load hash from cache
     people_hash = Rails.cache.fetch('basecamp_sgid_name_hash')
-    people_hash ||= {} 
-
-    # JSON to hash. And, cache the hash
+    people_hash ||= {}
+    # Always request new people json to Basecamp API
+    # Because, sometimes some person not return via the API
+    # So, require store people data and merge new people data
     people_json = get_people_json(account_id)
     # Collect people name and sgid
     people_json.each do |person|
       people_hash[person["attachable_sgid"]] = person["name"]
     end
-    # Save hash to cache
     Rails.cache.write 'basecamp_sgid_name_hash', people_hash
 
-    people_hash[sgid]
+    people_hash[sgid] # return person name
   end
 
   # Get a list of all pingable people
@@ -86,9 +84,8 @@ class EndpointController < ApplicationController
     # https://github.com/basecamp/bc3-api/blob/master/sections/people.md#get-pingable-people
     res = open("https://3.basecampapi.com/#{account_id}/circles/people.json",
                 "Authorization" => "Bearer #{access_token}")
-    people_json = ActiveSupport::JSON.decode res.read
 
-    people_json
+    ActiveSupport::JSON.decode res.read # return people_json
   end
 
   def access_token
