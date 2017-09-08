@@ -21,7 +21,9 @@ class EndpointController < ApplicationController
   # <URL|TODO_TITLE>
   # CONTENT
   def generate_text(params, account_id, project_id)
-    text = "#{params[:kind].underscore.humanize}"
+    emoji = kind_to_emoji(params.require(:kind)).try{|e| e + ' '} || ''
+    text = emoji
+    text += "#{params[:kind].underscore.humanize}"
     text += " in #{params[:recording][:bucket][:type]} <https://3.basecamp.com/#{account_id}/projects/#{project_id}/|#{params[:recording][:bucket][:name]}>"
     text += " #{params[:recording][:parent][:type]} <#{params[:recording][:parent][:app_url]}|#{params[:recording][:parent][:title]}>"
     text += " by #{params[:creator][:name]}\n"
@@ -92,5 +94,20 @@ class EndpointController < ApplicationController
     token = AccessToken.last
     token.refresh_access_token
     token.access_token
+  end
+
+  def kind_to_emoji(kind)
+    case kind
+    when 'comment_created'
+      ':speech_balloon:'
+    when 'todo_completed'
+      ':white_check_mark:'
+    when 'todo_uncompleted'
+      ':white_medium_small_square:'
+    when 'todo_assignment_changed'
+      ':bust_in_silhouette:'
+    when 'todo_adopted'
+      ':car:'
+    end
   end
 end
