@@ -21,11 +21,15 @@ class EndpointController < ApplicationController
   # <URL|TODO_TITLE>
   # CONTENT
   def generate_text(params, account_id, project_id)
-    text = "#{params[:kind].underscore.humanize}"
-    text += " in #{params[:recording][:bucket][:type]} <https://3.basecamp.com/#{account_id}/projects/#{project_id}/|#{params[:recording][:bucket][:name]}>"
-    text += " #{params[:recording][:parent][:type]} <#{params[:recording][:parent][:app_url]}|#{params[:recording][:parent][:title]}>"
-    text += " by #{params[:creator][:name]}\n"
-    text
+    emoji = kind_to_emoji(params.require(:kind)).try{|e| e + ' '} || ''
+    kind = params.require(:kind).underscore.humanize
+    bucket_type = params[:recording][:bucket][:type]
+    bucket_name = "<https://3.basecamp.com/#{account_id}/projects/#{project_id}/|#{params[:recording][:bucket][:name]}>"
+    parent_type = params[:recording][:parent][:type]
+    parent_name = "<#{params[:recording][:parent][:app_url]}|#{params[:recording][:parent][:title]}>"
+    creator = params[:creator][:name]
+
+    "#{emoji}#{kind} in #{bucket_type} #{bucket_name} #{parent_type} #{parent_name} by #{creator}\n"
   end
 
   def generate_attachments(params, account_id, project_id)
@@ -92,5 +96,20 @@ class EndpointController < ApplicationController
     token = AccessToken.last
     token.refresh_access_token
     token.access_token
+  end
+
+  def kind_to_emoji(kind)
+    case kind
+    when 'comment_created'
+      ':speech_balloon:'
+    when 'todo_completed'
+      ':white_check_mark:'
+    when 'todo_uncompleted'
+      ':white_medium_small_square:'
+    when 'todo_assignment_changed'
+      ':bust_in_silhouette:'
+    when 'todo_adopted'
+      ':car:'
+    end
   end
 end
