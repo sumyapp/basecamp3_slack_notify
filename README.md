@@ -3,7 +3,7 @@ This is very simple Basecamp3 to Slack notify app.
 If you using Basecamp3 and Slack, try this!
 
 * Ruby version
-  * 2.4.1
+  * 2.4.2
 * System dependencies
   * All functions are implemented synchronously. Worker process is not required.
   * It works only with Heroku and MySQL add-on.
