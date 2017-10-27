@@ -8,7 +8,7 @@ If you using Basecamp3 and Slack, try this!
   * All functions are implemented synchronously. Worker process is not required.
   * It works only with Heroku and MySQL add-on.
 * Configuration
-  * Please edit secrets.yml or your enviroment variables.
+  * Please edit secrets.yml or your environment variables.
   * About Slack
     * ENV["SLACK_INCOMING_WEBHOOK_URL"]
       * Please add new incoming webhook to your slack channnel. And set the url to env
