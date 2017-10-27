@@ -35,7 +35,7 @@ class SetupController < ApplicationController
     res = https.request(req)
     auth_json = JSON.parse(res.body)
 
-    # Store token to database. latest registerd token will use
+    # Store token to database. latest registered token will use
     AccessToken.create access_token: auth_json["access_token"],
                       refresh_token: auth_json["refresh_token"],
                          expires_at: (Time.now.utc + auth_json["expires_in"])
