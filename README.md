@@ -11,7 +11,7 @@ If you using Basecamp3 and Slack, try this!
   * Please edit secrets.yml or your environment variables.
   * About Slack
     * ENV["SLACK_INCOMING_WEBHOOK_URL"]
-      * Please add new incoming webhook to your slack channnel. And set the url to env
+      * Please add new incoming webhook to your slack channel. And set the url to env
     * icon_emoji
       * Please add `:basecamp:` emoji to your slack team
   * About Basecamp3
