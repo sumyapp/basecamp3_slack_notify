@@ -19,7 +19,7 @@ If you using Basecamp3 and Slack, try this!
     * ENV["BASECAMP_INTEGRATION"]
       * If you want to use this func. please set `true`
     * Require register your app to https://launchpad.37signals.com/integrations
-      * You can get these valiables.
+      * You can get these variables.
       * ENV["BASECAMP_CLIENT_SECRET"]
       * ENV["BASECAMP_AUTH_REDIRECT_URI"]
     * You can know account id at this url `https://3.basecamp.com/$ACCOUNT_ID/projects`
