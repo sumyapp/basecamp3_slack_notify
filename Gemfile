@@ -48,6 +48,7 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
   gem 'rspec-rails'
   gem 'rspec-request_describer'
+  gem 'coveralls', require: false
 end
 
 group :development do
