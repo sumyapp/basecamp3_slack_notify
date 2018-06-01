@@ -2,6 +2,9 @@
 This is very simple Basecamp3 to Slack notify app.
 If you using Basecamp3 and Slack, try this!
 
+[![Build Status](https://travis-ci.org/sideci/basecamp3_slack_notify.svg?branch=master)](https://travis-ci.org/sideci/basecamp3_slack_notify)
+[![Coverage Status](https://coveralls.io/repos/github/sideci/basecamp3_slack_notify/badge.svg?branch=)](https://coveralls.io/github/sideci/basecamp3_slack_notify?branch=)
+
 * Ruby version
   * 2.4.2
 * System dependencies
