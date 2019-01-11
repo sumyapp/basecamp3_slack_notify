@@ -1,5 +1,7 @@
 language: ruby
 dist: xenial
+services:
+  - mysql
 cache:
   bundler: true
 branches:
