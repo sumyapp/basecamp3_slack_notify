@@ -6,7 +6,7 @@ If you using Basecamp3 and Slack, try this!
 [![Coverage Status](https://coveralls.io/repos/github/sideci/basecamp3_slack_notify/badge.svg?branch=)](https://coveralls.io/github/sideci/basecamp3_slack_notify?branch=)
 
 * Ruby version
-  * 2.4.2
+  * 2.6.0
 * System dependencies
   * All functions are implemented synchronously. Worker process is not required.
   * It works only with Heroku and MySQL add-on.
