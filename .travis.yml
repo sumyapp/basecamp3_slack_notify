@@ -4,6 +4,11 @@ services:
   - mysql
 cache:
   bundler: true
+addons:
+  sonarcloud:
+    organization: "sumyapp-github" # the key of the org you chose at step #3
+    token:
+      secure: "AXlJdV9h3eaZChPHR/OU7nQggjfjvpwhcPc696ER2mICibVY5eKkT7FBqRC3IuXOQIRzTNG7DjoGUdbiVo0SmfWItB0sK8I90tcc6wk4MesKkgKxUvs6lAsjvXFi4aPgxe5Yp+b2NoUYciAJ7IjTk5+yy73HrFjMOv+vyQjO50UB5jk7SW5KgwZMXFMd7LG2HgRRJNjdJzGskTZG2XznIzQsOAbhKLOJ66WYYHJbMLHIfiMHCr04Ve9eCM9VLaNTe4RJh4F0AIPsm+TsMKbfsMQ6rgEJigpu9v1rIpz4CkLlBDTXkwyfN6qA1whkCgZMZHDXSgrrxPLuYZYaJ9UEWHserP88cyvOKdErBuxZSsga2vTwVT8djV5W6ZbC64SEGYkoXEIoUsujJS+DJkaNT6ysGyxpC+SFUj9TC1s+cCRDHKDrQy+AQ4rtY262SYRkIM9HPlemHxjq+48hOXw6zHi3wrUQzF/9MaTj6ubbenRVOHAhoQ0+p6e5d/or8K/VtKSlH4GuOoeoEQvdC+7LyEwkLz8IUniB1u5DNkbWhWdGUx9KUWGPjTh7wI+nH8T+JAtM34OPP5OJJmnMd5ldt+i9kmYIRULhnEV0Jl2cEis5wkeO0dJG4heG1ZN5zTAz3Y822LZfCimRMiBnWk+uD1EHcY5GSxT3L+z2RMDNy/Y="
 branches:
   only:
     - master
@@ -11,3 +16,4 @@ before_script:
   - bundle exec rake db:migrate:reset
 script:
   - bundle exec rake
+  - sonar-scanner
